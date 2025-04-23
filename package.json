@@ -1,0 +1,31 @@
+{
+  "name": "sketches-v03",
+  "version": "1.0.0",
+  "description": "For years, I've tinkered with game development on the web. But, I haven't finished (m)any games. So, I decided to just focus more on finishing little interesting sketches of graphics and sound.",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm-run-all -p watch serve",
+    "build": "rimraf dist && mkdirp dist && cp src/index.{css,html} dist && esbuild --bundle src/index.js --outfile=dist/index.js",
+    "serve": "reload -v -w ./dist -f index.html -d ./dist -p 9980",
+    "watch": "onchange 'src/**/*.{js,html,css}' -- npm run build"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "esbuild": "0.25.2",
+    "mkdirp": "^3.0.1",
+    "npm-run-all": "^4.1.5",
+    "onchange": "^7.1.0",
+    "reload": "^3.3.0",
+    "rimraf": "^6.0.1"
+  },
+  "dependencies": {
+    "@pixi/core": "^7.4.3",
+    "@pixi/display": "^7.4.3",
+    "@pixi/filter-fxaa": "^7.4.3",
+    "@pixi/graphics": "^7.4.3",
+    "@pixi/graphics-smooth": "^1.1.1",
+    "pixi-filters": "^6.1.2",
+    "pixi.js": "^8.9.1"
+  }
+}
