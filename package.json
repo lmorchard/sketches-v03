@@ -7,7 +7,7 @@
   "scripts": {
     "start": "npm run build && npm-run-all -p watch serve",
     "build": "node build.js",
-    "serve": "reload -v -w ./dist -f index.html -d ./dist -p 9980",
+    "serve": "reload -v -w ./dist -f index.html -d ./dist -p 9960",
     "watch": "onchange 'src/**/*' -- npm run build"
   },
   "author": "",
