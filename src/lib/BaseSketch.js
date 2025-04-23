@@ -1,6 +1,9 @@
-// import { Application, Container, Graphics } from "pixi.js";
-// import { AdvancedBloomFilter } from "pixi-filters";
-import { Application, Container, Graphics, AdvancedBloomFilter } from "./vendor/pixi.js";
+import {
+  Application,
+  Container,
+  Graphics,
+  AdvancedBloomFilter,
+} from "./bundles/pixi.js";
 
 class BaseSketch extends HTMLElement {
   constructor() {
@@ -60,7 +63,7 @@ class BaseSketch extends HTMLElement {
       backgroundGraphics,
       stage,
       debugStage,
-      debugGraphics
+      debugGraphics,
     });
 
     this.updateSizing(true);
@@ -72,9 +75,7 @@ class BaseSketch extends HTMLElement {
     app.ticker.add((ticker) => this.update(ticker));
   }
 
-  update(ticker) {
-
-  }
+  update(ticker) {}
 
   updateSizing(force = false) {
     const { renderer } = this.app;
@@ -91,7 +92,7 @@ class BaseSketch extends HTMLElement {
     }
   }
 
-  render() { }
+  render() {}
 }
 
 export default BaseSketch;

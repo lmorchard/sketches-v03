@@ -5,27 +5,24 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "npm-run-all -p watch serve",
-    "build": "rimraf dist && mkdirp dist && cp src/index.css dist && cp src/index.html dist && cd src && esbuild --format=esm --bundle --splitting --outdir=../dist index.js lib/BaseSketch.js sketches/VectorAvatar/VectorAvatar.js lib/vendor/pixi.js",
+    "start": "npm run build && npm-run-all -p watch serve",
+    "build": "node build.js",
     "serve": "reload -v -w ./dist -f index.html -d ./dist -p 9980",
-    "watch": "onchange 'src/**/*.{js,html,css}' -- npm run build"
+    "watch": "onchange 'src/**/*' -- npm run build"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "esbuild": "0.25.2",
+    "glob": "^11.0.2",
     "mkdirp": "^3.0.1",
     "npm-run-all": "^4.1.5",
     "onchange": "^7.1.0",
+    "recursive-copy": "^2.0.14",
     "reload": "^3.3.0",
     "rimraf": "^6.0.1"
   },
   "dependencies": {
-    "@pixi/core": "^7.4.3",
-    "@pixi/display": "^7.4.3",
-    "@pixi/filter-fxaa": "^7.4.3",
-    "@pixi/graphics": "^7.4.3",
-    "@pixi/graphics-smooth": "^1.1.1",
     "pixi-filters": "^6.1.2",
     "pixi.js": "^8.9.1",
     "seedrandom": "^3.0.5"

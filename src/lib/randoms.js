@@ -1,4 +1,5 @@
-import seedrandom from "seedrandom";
+// import seedrandom from "seedrandom";
+import { seedrandom } from "./bundles/seedrandom.js";
 
 export function setGlobalRngClass(cls) {
   rngClass = cls;

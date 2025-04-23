@@ -1,6 +1,4 @@
-// import { Container, Graphics } from "pixi.js";
-// import { Container, Graphics } from "https://unpkg.com/pixi.js@8.9.1/dist/pixi.min.mjs";
-import { Container, Graphics } from "../../lib/vendor/pixi.js";
+import { Container, Graphics } from "../../lib/bundles/pixi.js";
 import BaseSketch from "../../lib/BaseSketch.js";
 import { hslToRgb } from "../../lib/hslToRgb.js";
 import {
@@ -167,7 +165,15 @@ class VectorAvatar extends BaseSketch {
 
     // body portion of mask
     gMask.poly(
-      this.ellipsePolygon(hWidth, height, hWidth, height * 0.6, 12, Math.PI, PI2)
+      this.ellipsePolygon(
+        hWidth,
+        height,
+        hWidth,
+        height * 0.6,
+        12,
+        Math.PI,
+        PI2
+      )
     );
 
     gMask.fill(0xffffff);
@@ -288,7 +294,7 @@ class VectorAvatar extends BaseSketch {
       g.stroke({
         width: 1.5,
         color,
-        alpha: 1.0
+        alpha: 1.0,
       });
     }
   }
