@@ -2,10 +2,11 @@
   "name": "sketches-v03",
   "version": "1.0.0",
   "description": "For years, I've tinkered with game development on the web. But, I haven't finished (m)any games. So, I decided to just focus more on finishing little interesting sketches of graphics and sound.",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "start": "npm-run-all -p watch serve",
-    "build": "rimraf dist && mkdirp dist && cp src/index.css dist && cp src/index.html dist && esbuild --bundle src/index.js --outfile=dist/index.js",
+    "build": "rimraf dist && mkdirp dist && cp src/index.css dist && cp src/index.html dist && cd src && esbuild --format=esm --bundle --splitting --outdir=../dist index.js lib/BaseSketch.js sketches/VectorAvatar/VectorAvatar.js lib/vendor/pixi.js",
     "serve": "reload -v -w ./dist -f index.html -d ./dist -p 9980",
     "watch": "onchange 'src/**/*.{js,html,css}' -- npm run build"
   },

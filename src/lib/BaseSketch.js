@@ -1,5 +1,6 @@
-import { Application, Container, Graphics } from "pixi.js";
-import { AdvancedBloomFilter } from "pixi-filters";
+// import { Application, Container, Graphics } from "pixi.js";
+// import { AdvancedBloomFilter } from "pixi-filters";
+import { Application, Container, Graphics, AdvancedBloomFilter } from "./vendor/pixi.js";
 
 class BaseSketch extends HTMLElement {
   constructor() {

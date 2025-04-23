@@ -1,5 +1,7 @@
+// import { Container, Graphics } from "pixi.js";
+// import { Container, Graphics } from "https://unpkg.com/pixi.js@8.9.1/dist/pixi.min.mjs";
+import { Container, Graphics } from "../../lib/vendor/pixi.js";
 import BaseSketch from "../../lib/BaseSketch.js";
-import { Container, Graphics, Polygon, Point } from "pixi.js";
 import { hslToRgb } from "../../lib/hslToRgb.js";
 import {
   mkrng,
@@ -12,7 +14,7 @@ import {
 const PI2 = Math.PI * 2.0;
 
 let PARTICLE_TYPE_IDX = 0;
-export const AvatarParticleType = {
+const AvatarParticleType = {
   RASTER: PARTICLE_TYPE_IDX++,
   SQUARE: PARTICLE_TYPE_IDX++,
   TRIANGLES: PARTICLE_TYPE_IDX++,
@@ -25,7 +27,7 @@ export const AvatarParticleType = {
   BODY_SPINNER: PARTICLE_TYPE_IDX++,
 };
 
-export const AvatarSpecies = {
+const AvatarSpecies = {
   PLAID: {
     [AvatarParticleType.BOUNCING_RASTER]: 1.0,
     [AvatarParticleType.BOUNCING_VERTICAL]: 1.0,
@@ -52,7 +54,7 @@ export const AvatarSpecies = {
 };
 
 let PARTICLE_RECORD_LENGTH = 0;
-export const AvatarParticleFields = {
+const AvatarParticleFields = {
   TYPE: PARTICLE_RECORD_LENGTH++,
   COLOR: PARTICLE_RECORD_LENGTH++,
   X1: PARTICLE_RECORD_LENGTH++,
@@ -152,7 +154,7 @@ class VectorAvatar extends BaseSketch {
 
     // head portion of mask
     gMask.poly(
-      ellipsePolygon(
+      this.ellipsePolygon(
         hWidth,
         height * 0.25,
         height * 0.25,
@@ -165,11 +167,11 @@ class VectorAvatar extends BaseSketch {
 
     // body portion of mask
     gMask.poly(
-      ellipsePolygon(hWidth, height, hWidth, height * 0.6, 12, Math.PI, PI2)
+      this.ellipsePolygon(hWidth, height, hWidth, height * 0.6, 12, Math.PI, PI2)
     );
 
     gMask.fill(0xffffff);
-    gMask.stroke({ width: 1.5, color: 0xffffff, alpha: 1});
+    gMask.stroke({ width: 1.5, color: 0xffffff, alpha: 1 });
   }
 
   updateParticles() {
@@ -302,25 +304,24 @@ class VectorAvatar extends BaseSketch {
     g.lineTo(x2, y2);
   }
 
-}
-
-function ellipsePolygon(
-  centerX,
-  centerY,
-  radiusX,
-  radiusY,
-  numPoints,
-  angleStart,
-  angleEnd
-) {
-  const angleStep = (angleEnd - angleStart) / numPoints;
-  const points = [];
-  for (let angle = angleStart; angle <= angleEnd; angle += angleStep) {
-    const x = radiusX * Math.cos(angle) + centerX;
-    const y = radiusY * Math.sin(angle) + centerY;
-    points.push(x, y);
+  ellipsePolygon(
+    centerX,
+    centerY,
+    radiusX,
+    radiusY,
+    numPoints,
+    angleStart,
+    angleEnd
+  ) {
+    const angleStep = (angleEnd - angleStart) / numPoints;
+    const points = [];
+    for (let angle = angleStart; angle <= angleEnd; angle += angleStep) {
+      const x = radiusX * Math.cos(angle) + centerX;
+      const y = radiusY * Math.sin(angle) + centerY;
+      points.push(x, y);
+    }
+    return points;
   }
-  return points;
 }
 
 customElements.define("vector-avatar", VectorAvatar);
