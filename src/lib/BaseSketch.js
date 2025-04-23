@@ -7,10 +7,10 @@ class BaseSketch extends HTMLElement {
   }
 
   connectedCallback() {
-    this.initApp();
+    this.init();
   }
 
-  async initApp() {
+  async init() {
     const parentNode = this;
     const { clientWidth, clientHeight } = parentNode;
 
@@ -67,6 +67,12 @@ class BaseSketch extends HTMLElement {
       this.updateSizing();
       debugGraphics.clear();
     });
+
+    app.ticker.add((ticker) => this.update(ticker));
+  }
+
+  update(ticker) {
+
   }
 
   updateSizing(force = false) {
@@ -84,7 +90,7 @@ class BaseSketch extends HTMLElement {
     }
   }
 
-  render() {}
+  render() { }
 }
 
 export default BaseSketch;

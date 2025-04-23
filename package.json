@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm-run-all -p watch serve",
-    "build": "rimraf dist && mkdirp dist && cp src/index.{css,html} dist && esbuild --bundle src/index.js --outfile=dist/index.js",
+    "build": "rimraf dist && mkdirp dist && cp src/index.css dist && cp src/index.html dist && esbuild --bundle src/index.js --outfile=dist/index.js",
     "serve": "reload -v -w ./dist -f index.html -d ./dist -p 9980",
     "watch": "onchange 'src/**/*.{js,html,css}' -- npm run build"
   },
@@ -26,6 +26,7 @@
     "@pixi/graphics": "^7.4.3",
     "@pixi/graphics-smooth": "^1.1.1",
     "pixi-filters": "^6.1.2",
-    "pixi.js": "^8.9.1"
+    "pixi.js": "^8.9.1",
+    "seedrandom": "^3.0.5"
   }
 }

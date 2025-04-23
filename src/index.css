@@ -1,6 +1,5 @@
 vector-avatar {
-  display: block;
-  width: 200px;
-  height: 200px;
-  border: 1px solid red;
+  display: inline-block;
+  width: 150px;
+  height: 150px;
 }
