@@ -1,0 +1,33 @@
+name: Deploy to gh-pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@master
+
+      - name: Cache ♻
+        uses: egordm/gha-yarn-node-cache@v1
+
+      # Someday, we might use some wasm here
+      #- name: Setup wasm-pack 📦✨
+      #  run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
+      - name: Install 🔧
+        run: npm install
+
+      - name: Build 🏗️
+        run: npm build
+
+      - name: Deploy to GH Pages 🚀
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: dist
