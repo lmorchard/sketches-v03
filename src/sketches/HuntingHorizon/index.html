@@ -246,6 +246,32 @@
             height: auto !important;
         }
 
+        /* Back Link */
+        .back-link {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(106, 155, 204, 0.9);
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-link:hover {
+            background: rgba(138, 180, 219, 1);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+        }
+
         /* Toggle Button */
         .toggle-sidebar-btn {
             position: fixed;
@@ -297,6 +323,11 @@
     </style>
 </head>
 <body>
+    <!-- Back Link -->
+    <a href="../../index.html" class="back-link">
+        <span>←</span> Back to Gallery
+    </a>
+
     <!-- Toggle Sidebar Button -->
     <button class="toggle-sidebar-btn sidebar-visible" id="toggle-sidebar">
         ☰
