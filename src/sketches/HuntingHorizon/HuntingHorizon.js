@@ -1,6 +1,22 @@
 import p5 from "../../lib/bundles/p5.js";
 
 class HuntingHorizon extends HTMLElement {
+  static get observedAttributes() {
+    return [
+      'seed',
+      'bird-count',
+      'fish-count',
+      'hunt-speed',
+      'fish-speed',
+      'turbulence',
+      'trail-fade',
+      'splash-intensity',
+      'sink-speed',
+      'feeding-speed',
+      'drown-chance'
+    ];
+  }
+
   constructor() {
     super();
 
@@ -33,7 +49,36 @@ class HuntingHorizon extends HTMLElement {
     this.INTERFACE_Y = 600; // Water surface at middle of 1200px canvas
   }
 
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (oldValue === newValue) return;
+
+    // Convert kebab-case to camelCase
+    const paramName = name.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+    const value = parseFloat(newValue);
+
+    if (!isNaN(value)) {
+      this.params[paramName] = value;
+
+      // If p5 instance exists, reinitialize if needed
+      if (this.p5Instance) {
+        if (paramName === 'birdCount' || paramName === 'fishCount' || paramName === 'seed') {
+          this.initializeSystem();
+        }
+      }
+    }
+  }
+
   connectedCallback() {
+    // Parse initial attributes before creating p5 instance
+    this.constructor.observedAttributes.forEach(attr => {
+      if (this.hasAttribute(attr)) {
+        const paramName = attr.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+        const value = parseFloat(this.getAttribute(attr));
+        if (!isNaN(value)) {
+          this.params[paramName] = value;
+        }
+      }
+    });
     // Create p5 instance in instance mode
     this.p5Instance = new p5((p) => {
       this.p = p;

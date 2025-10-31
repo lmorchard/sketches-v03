@@ -4,21 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Hunting Horizon</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* Anthropic Brand Colors */
-        :root {
-            --anthropic-dark: #141413;
-            --anthropic-light: #faf9f5;
-            --anthropic-mid-gray: #b0aea5;
-            --anthropic-light-gray: #e8e6dc;
-            --anthropic-orange: #d97757;
-            --anthropic-blue: #6a9bcc;
-            --anthropic-green: #788c5d;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -26,7 +12,6 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #0a0e14 0%, #1a1f2e 100%);
             min-height: 100vh;
             color: #e8e6dc;
@@ -60,9 +45,8 @@
         }
 
         .sidebar h1 {
-            font-family: 'Lora', serif;
             font-size: 24px;
-            font-weight: 500;
+            font-weight: 600;
             color: #e8e6dc;
             margin-bottom: 8px;
         }
@@ -431,6 +415,16 @@
 
         <!-- Main Canvas Area -->
         <div class="canvas-area">
+            <!-- You can initialize parameters via attributes:
+            <hunting-horizon
+                id="sketch"
+                seed="54321"
+                bird-count="30"
+                fish-count="100"
+                hunt-speed="5"
+                turbulence="0.8">
+            </hunting-horizon>
+            -->
             <hunting-horizon id="sketch"></hunting-horizon>
         </div>
     </div>
@@ -440,6 +434,9 @@
 
         const sketch = document.getElementById('sketch');
         const seedInput = document.getElementById('seed-input');
+
+        // Initialize UI controls with current sketch values (in case attributes were set)
+        seedInput.value = sketch.params.seed;
 
         // Parameter update handlers
         const params = [
@@ -451,6 +448,16 @@
         params.forEach(paramName => {
             const slider = document.getElementById(paramName);
             const valueDisplay = document.getElementById(paramName + '-value');
+
+            // Sync initial values from sketch params
+            slider.value = sketch.params[paramName];
+            let displayValue = sketch.params[paramName];
+            if (['trailFade', 'fishSpeed', 'turbulence', 'sinkSpeed', 'drownChance'].includes(paramName)) {
+                displayValue = displayValue.toFixed(2);
+            } else if (['huntSpeed', 'feedingSpeed'].includes(paramName)) {
+                displayValue = displayValue.toFixed(1);
+            }
+            valueDisplay.textContent = displayValue;
 
             slider.addEventListener('input', (e) => {
                 const value = parseFloat(e.target.value);
