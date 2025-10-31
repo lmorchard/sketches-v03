@@ -23,6 +23,7 @@
     "rimraf": "^6.0.1"
   },
   "dependencies": {
+    "p5": "^1.7.0",
     "pixi-filters": "^6.1.2",
     "pixi.js": "^8.9.1",
     "seedrandom": "^3.0.5"
