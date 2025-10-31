@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vector Avatar Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0a0e14 0%, #1a1f2e 100%);
+            min-height: 100vh;
+            color: #e8e6dc;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 36px;
+            font-weight: 600;
+            color: #e8e6dc;
+            margin-bottom: 12px;
+        }
+
+        header p {
+            color: #8a9099;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .avatar-card {
+            background: rgba(20, 25, 35, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.2s ease;
+            cursor: pointer;
+        }
+
+        .avatar-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .avatar-wrapper {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #0f141e;
+            margin-bottom: 12px;
+        }
+
+        vector-avatar {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .avatar-info {
+            text-align: center;
+        }
+
+        .avatar-seed {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #6a9bcc;
+            margin-bottom: 8px;
+        }
+
+        .avatar-hint {
+            font-size: 12px;
+            color: #8a9099;
+        }
+
+        .controls {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .button {
+            background: #d97757;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin: 0 8px;
+        }
+
+        .button:hover {
+            background: #e98b6f;
+            transform: translateY(-1px);
+        }
+
+        .button.secondary {
+            background: #6a9bcc;
+        }
+
+        .button.secondary:hover {
+            background: #8ab4db;
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Vector Avatar Gallery</h1>
+            <p>Generative avatars created with seeded randomness. Click any avatar to regenerate it with a new seed.</p>
+        </header>
+
+        <div class="gallery" id="gallery">
+            <!-- Avatars will be dynamically created here -->
+        </div>
+
+        <div class="controls">
+            <button class="button secondary" id="regenerate-all">↻ Regenerate All</button>
+            <button class="button" id="add-avatar">+ Add Avatar</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import "./VectorAvatar.js";
+
+        const gallery = document.getElementById('gallery');
+        let avatarCount = 6;
+
+        function createAvatarCard(seed = null) {
+            const actualSeed = seed || Math.floor(Math.random() * 10000);
+
+            const card = document.createElement('div');
+            card.className = 'avatar-card';
+
+            const wrapper = document.createElement('div');
+            wrapper.className = 'avatar-wrapper';
+
+            const avatar = document.createElement('vector-avatar');
+            avatar.seed = actualSeed;
+
+            const info = document.createElement('div');
+            info.className = 'avatar-info';
+
+            const seedDisplay = document.createElement('div');
+            seedDisplay.className = 'avatar-seed';
+            seedDisplay.textContent = `Seed: ${actualSeed}`;
+
+            const hint = document.createElement('div');
+            hint.className = 'avatar-hint';
+            hint.textContent = 'Click to regenerate';
+
+            info.appendChild(seedDisplay);
+            info.appendChild(hint);
+            wrapper.appendChild(avatar);
+            card.appendChild(wrapper);
+            card.appendChild(info);
+
+            // Click to regenerate this avatar
+            card.addEventListener('click', () => {
+                const newSeed = Math.floor(Math.random() * 10000);
+                avatar.seed = newSeed;
+                seedDisplay.textContent = `Seed: ${newSeed}`;
+            });
+
+            return card;
+        }
+
+        function initGallery() {
+            gallery.innerHTML = '';
+            for (let i = 0; i < avatarCount; i++) {
+                gallery.appendChild(createAvatarCard());
+            }
+        }
+
+        // Initialize with avatars
+        initGallery();
+
+        // Regenerate all button
+        document.getElementById('regenerate-all').addEventListener('click', () => {
+            initGallery();
+        });
+
+        // Add avatar button
+        document.getElementById('add-avatar').addEventListener('click', () => {
+            gallery.appendChild(createAvatarCard());
+            avatarCount++;
+        });
+    </script>
+</body>
+</html>

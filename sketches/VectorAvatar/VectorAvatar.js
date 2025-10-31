@@ -71,10 +71,35 @@ const MIN_SPEED = 2;
 const MAX_SPEED = 25;
 
 class VectorAvatar extends BaseSketch {
+  static get observedAttributes() {
+    return ['seed'];
+  }
+
   constructor() {
     super();
 
-    this.seed = parseInt(Math.random() * 10000);
+    this._seed = parseInt(Math.random() * 10000);
+  }
+
+  get seed() {
+    return this._seed;
+  }
+
+  set seed(value) {
+    const newSeed = parseInt(value);
+    if (!isNaN(newSeed) && newSeed !== this._seed) {
+      this._seed = newSeed;
+      // If app is initialized, reinitialize particles and graphics
+      if (this.app) {
+        this.reinitialize();
+      }
+    }
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === 'seed' && oldValue !== newValue) {
+      this.seed = newValue;
+    }
   }
 
   async init() {
@@ -86,6 +111,17 @@ class VectorAvatar extends BaseSketch {
 
     await this.initParticles();
     await this.initGraphics();
+  }
+
+  async reinitialize() {
+    // Clear existing graphics
+    if (this.g) {
+      this.g.clear();
+    }
+
+    // Reinitialize with new seed
+    await this.initParticles();
+    // Graphics container already exists, just need to update particles
   }
 
   update() {

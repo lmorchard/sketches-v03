@@ -1,21 +1,233 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>lmorchard sketches-v03</title>
-    <link rel="stylesheet" href="./index.css" />
+    <title>lmorchard sketches vol 03</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        background: linear-gradient(135deg, #0a0e14 0%, #1a1f2e 100%);
+        min-height: 100vh;
+        color: #e8e6dc;
+        padding: 40px 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 60px;
+      }
+
+      header h1 {
+        font-size: 48px;
+        font-weight: 600;
+        color: #e8e6dc;
+        margin-bottom: 16px;
+      }
+
+      header p {
+        color: #8a9099;
+        font-size: 18px;
+        line-height: 1.6;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .sketches-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 40px;
+        margin-bottom: 60px;
+      }
+
+      .sketch-card {
+        background: rgba(20, 25, 35, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+      }
+
+      .sketch-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+      }
+
+      .sketch-preview {
+        width: 100%;
+        height: 300px;
+        background: linear-gradient(135deg, #1a1f2e 0%, #0a0e14 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .sketch-preview::after {
+        content: '→';
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        font-size: 32px;
+        color: rgba(106, 155, 204, 0.5);
+        transition: transform 0.3s ease;
+      }
+
+      .sketch-card:hover .sketch-preview::after {
+        transform: translateX(8px);
+        color: rgba(106, 155, 204, 1);
+      }
+
+      .sketch-info {
+        padding: 28px;
+      }
+
+      .sketch-title {
+        font-size: 28px;
+        font-weight: 600;
+        color: #e8e6dc;
+        margin-bottom: 12px;
+      }
+
+      .sketch-description {
+        color: #8a9099;
+        font-size: 15px;
+        line-height: 1.6;
+        margin-bottom: 16px;
+      }
+
+      .sketch-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .tag {
+        background: rgba(106, 155, 204, 0.2);
+        color: #6a9bcc;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px 20px;
+        color: #8a9099;
+        font-size: 14px;
+      }
+
+      footer a {
+        color: #6a9bcc;
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      /* Preview animations */
+      .preview-hunting-horizon {
+        background: radial-gradient(ellipse at center, #1a2f3f 0%, #0a0e14 100%);
+      }
+
+      .preview-hunting-horizon::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background:
+          linear-gradient(45deg, transparent 45%, rgba(106, 155, 204, 0.1) 50%, transparent 55%),
+          linear-gradient(-45deg, transparent 45%, rgba(150, 200, 255, 0.05) 50%, transparent 55%);
+        animation: shimmer 3s ease-in-out infinite;
+      }
+
+      @keyframes shimmer {
+        0%, 100% { opacity: 0.3; }
+        50% { opacity: 0.6; }
+      }
+
+      .preview-vector-avatar {
+        background: linear-gradient(135deg, #1a1f2e 0%, #0f141e 100%);
+      }
+
+      @media (max-width: 768px) {
+        header h1 {
+          font-size: 36px;
+        }
+
+        .sketches-grid {
+          grid-template-columns: 1fr;
+          gap: 30px;
+        }
+
+        .sketch-preview {
+          height: 240px;
+        }
+      }
+    </style>
   </head>
   <body>
-    <header>
-      <h1>lmorchard sketches vol 03</h1>
-    </header>
+    <div class="container">
+      <header>
+        <h1>lmorchard sketches vol 03</h1>
+        <p>A collection of generative art experiments and interactive visualizations built with modern web technologies.</p>
+      </header>
 
-    <vector-avatar></vector-avatar>
-    <vector-avatar></vector-avatar>
-    <vector-avatar></vector-avatar>
-    <vector-avatar></vector-avatar>
-    <vector-avatar></vector-avatar>
+      <div class="sketches-grid">
+        <a href="./sketches/HuntingHorizon/index.html" class="sketch-card">
+          <div class="sketch-preview preview-hunting-horizon"></div>
+          <div class="sketch-info">
+            <h2 class="sketch-title">The Hunting Horizon</h2>
+            <p class="sketch-description">
+              Algorithmic predation at the air-water interface. Watch birds hunt fish in a dynamic ecosystem with emergent behaviors, complete with drowning, feeding, and escape mechanics.
+            </p>
+            <div class="sketch-tags">
+              <span class="tag">p5.js</span>
+              <span class="tag">Flocking</span>
+              <span class="tag">Predator-Prey</span>
+              <span class="tag">Interactive</span>
+            </div>
+          </div>
+        </a>
 
-    <script type="module" src="./index.js"></script>
+        <a href="./sketches/VectorAvatar/index.html" class="sketch-card">
+          <div class="sketch-preview preview-vector-avatar"></div>
+          <div class="sketch-info">
+            <h2 class="sketch-title">Vector Avatar Gallery</h2>
+            <p class="sketch-description">
+              Procedurally generated avatars using seeded randomness. Each avatar is unique, deterministic, and composed of simple geometric patterns with rich variations.
+            </p>
+            <div class="sketch-tags">
+              <span class="tag">PIXI.js</span>
+              <span class="tag">Generative</span>
+              <span class="tag">Avatars</span>
+              <span class="tag">Seeded</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <footer>
+        <p>Created by <a href="https://lmorchard.com" target="_blank">Les Orchard</a></p>
+      </footer>
+    </div>
   </body>
 </html>
